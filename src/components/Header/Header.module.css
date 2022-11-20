@@ -1,0 +1,10 @@
+.header__wrapper {
+    grid-area: h;
+    background-color: #E6E2DA;
+    border-radius: 40px 40px 0 0;
+}
+
+.header__wrapper_logo {
+    width: 100px;
+    margin-left: 10px;
+}

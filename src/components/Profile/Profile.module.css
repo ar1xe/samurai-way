@@ -1,0 +1,8 @@
+/*.profile__wrapper{*/
+/*    display: grid;*/
+/*    grid-area: c;*/
+/*    background-color: burlywood;*/
+/*}*/
+.profile__wrapper_logo{
+    width: 100%;
+}
