@@ -1,24 +1,37 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
+import {SideBarContentPropsType} from "../../App";
 
-export const Navbar = () => {
+type NavbarPropsType = {
+    stateNavbar: SideBarContentPropsType
+}
+
+export const Navbar: FC<NavbarPropsType> = ({stateNavbar}) => {
+
+    const navBarMapped = stateNavbar.navigate.map((nav) => {
+        return (
+            <div key={nav.id} className={styles.item}>
+                <NavLink to={nav.path} activeClassName={styles.active}>{nav.title}</NavLink>
+            </div>
+        )
+    })
+
+    const friendsListMapped = stateNavbar.friendsList.map((friend) => {
+        return (
+            <div key={friend.id} className={styles.friends}>
+                <span className={styles.name}>{friend.name}</span>
+                <img className={styles.img} src={friend.img} alt={"asd"}/>
+            </div>
+        )
+    })
+
+
     return (
         <nav className={styles.navbar__wrapper}>
-            <div className={styles.item}>
-                <NavLink to="/profile" activeClassName={styles.active}>Profile</NavLink>
-            </div>
-            <div className={styles.item}>
-                <NavLink to="/dialogs" activeClassName={styles.active}>Messages</NavLink>
-            </div>
-            <div className={styles.item}>
-                <a href="src/components/Navbar/Navbar#3">News</a>
-            </div>
-            <div className={styles.item}>
-                <a href="src/components/Navbar/Navbar#4">Music</a>
-            </div>
-            <div className={styles.item}>
-                <a href="src/components/Navbar/Navbar#5">Settings</a>
+            {navBarMapped}
+            <div className={styles.friends_container}>
+                {friendsListMapped}
             </div>
         </nav>
     );

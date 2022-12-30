@@ -1,26 +1,36 @@
-import React from 'react';
-import styles from './Dialogs.module.css'
-import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./Message/Message";
+import React, { FC, MutableRefObject, useRef } from "react";
+import styles from "./Dialogs.module.css";
+import { DialogItem } from "./DialogItem/DialogItem";
+import { Message } from "./Message/Message";
+import { MessagesAndDialogsContentPropsType } from "../../App";
 
-export const Dialogs = () => {
-    return (
-        <div className={styles.dialogs}>
-            <div className={styles.dialogs_items}>
-                <DialogItem name="Sasha" id="1"/>
-                <DialogItem name="Dima" id="2"/>
-                <DialogItem name="Ira" id="3"/>
-                <DialogItem name="Roma" id="4"/>
-                <DialogItem name="Kristina" id="5"/>
-            </div>
-            <div className={styles.messages}>
-                <Message message="Hi" />
-                <Message message="How are you?" />
-                <Message message="What are you doing?" />
-                <Message message="What time is it?" />
-                <Message message="Where are you from?" />
-            </div>
-        </div>
-    );
+type DialogsComponentPropsType = {
+  stateDialogs: MessagesAndDialogsContentPropsType;
 };
 
+export const Dialogs: FC<DialogsComponentPropsType> = ({ stateDialogs }) => {
+  const dialogsMapped = stateDialogs.dialogs.map((d) => (
+    <DialogItem key={d.id} name={d.name} id={d.id} />
+  ));
+  const messagesMapped = stateDialogs.messages.map((m) => (
+    <Message key={m.id} message={m.message} />
+  ));
+
+  const newMessageRef = useRef<HTMLTextAreaElement>(
+    null
+  ) as MutableRefObject<HTMLTextAreaElement>;
+
+  const addMessage = () => {
+    const newMessage = newMessageRef.current.value;
+    alert(newMessage);
+  };
+
+  return (
+    <div className={styles.dialogs}>
+      <div className={styles.dialogs_items}>{dialogsMapped}</div>
+      <div className={styles.messages}>{messagesMapped}</div>
+      <textarea ref={newMessageRef}>...</textarea>
+      <button onClick={addMessage}>+</button>
+    </div>
+  );
+};

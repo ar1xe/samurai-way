@@ -1,13 +1,15 @@
 import React from 'react';
 
 type PostPropType = {
-    title: string;
+    message: string;
+    likesCount?: number
 }
 
 export const Post = (props: PostPropType) => {
     return (
         <div>
-            <span>{props.title}</span>
+            <span>{props.message}</span>
+            <span>{props.likesCount}</span>
         </div>
     );
 };

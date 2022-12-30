@@ -1,13 +1,28 @@
-import React from 'react';
-import {MyPosts} from "./MyPosts/MyPosts";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import React, { FC } from "react";
+import { MyPosts } from "./MyPosts/MyPosts";
+import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
+import { PostDataContentPropsType, PostDataPropsType } from "../../App";
+import { addPost } from "../../redux/state";
 
-export const Profile = () => {
-    return (
-        <div>
-            <ProfileInfo description="description"/>
-            <MyPosts/>
-        </div>
-    );
+type ProfilePropsType = {
+  stateProfile: PostDataContentPropsType;
+  addPost: () => void;
+  updateNewPostText: (newText: string) => void;
 };
 
+export const Profile: FC<ProfilePropsType> = ({
+  stateProfile,
+  addPost,
+  updateNewPostText,
+}) => {
+  return (
+    <div>
+      <ProfileInfo description="description" />
+      <MyPosts
+        postsData={stateProfile}
+        addPost={addPost}
+        updateNewPostText={updateNewPostText}
+      />
+    </div>
+  );
+};
